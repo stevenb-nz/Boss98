@@ -1,5 +1,5 @@
 #tag Window
-Begin Window MainWindow10
+Begin Window MainWindow
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
@@ -177,18 +177,6 @@ End
 		  t = TextOutputStream.Create(f)
 		  t.WriteLine str(highscore)
 		  t.Close
-		  MainWindow14.Show
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub EnableMenuItems()
-		  if undo.Ubound < 0 then
-		    EditUndo.Enabled = false
-		  else
-		    EditUndo.Enabled = true
-		  end
 		  
 		End Sub
 	#tag EndEvent
@@ -290,29 +278,6 @@ End
 	#tag EndEvent
 
 
-	#tag MenuHandler
-		Function EditUndo() As Boolean Handles EditUndo.Action
-			dim i as integer
-			dim item as UndoItem
-			
-			item = undo.pop
-			
-			for i = 0 to UBound(item.xyletters)
-			if grid(item.xyletters(i).x,item.xyletters(i).y) = "" then
-			unplaced = left(unplaced,len(unplaced)-1)
-			end
-			grid(item.xyletters(i).x,item.xyletters(i).y) = item.xyletters(i).letter
-			next
-			score = score - item.score
-			updateLabels
-			Refresh
-			
-			Return True
-			
-		End Function
-	#tag EndMenuHandler
-
-
 	#tag Method, Flags = &h0
 		Sub clearAction()
 		  dim i,j as Integer
@@ -364,8 +329,6 @@ End
 	#tag Method, Flags = &h0
 		Sub handleGoodWord(word as string)
 		  dim dx,dy,i,j,rawscore,tempcount as integer
-		  dim newundoitem as UndoItem
-		  dim newxyletter as XYLetter
 		  dim across, down As string
 		  dim temp() as string
 		  dim aclear(-1) as integer
@@ -377,13 +340,7 @@ End
 		  j = max(abs(mdx - mux),abs(mdy - muy))
 		  dx = Sign(mux - mdx)
 		  dy = sign(muy - mdy)
-		  newundoitem = new UndoItem
 		  for i = 0 to j
-		    newxyletter = new XYLetter
-		    newxyletter.letter = grid(mdx-1+i*dx,mdy-1+i*dy)
-		    newxyletter.x = mdx-1+i*dx
-		    newxyletter.y = mdy-1+i*dy
-		    newundoitem.xyletters.Append newxyletter
 		    if grid(mdx-1+i*dx,mdy-1+i*dy) <> "" then
 		      grid(mdx-1+i*dx,mdy-1+i*dy) = ""
 		      if gridorig(mdx-1+i*dx,mdy-1+i*dy) then
@@ -399,11 +356,10 @@ End
 		  rawscore = len(word) - 2
 		  if scoring then
 		    if len(word) = letters then
-		      newundoitem.score = pow(2,rawscore)
+		      score = score + pow(2,rawscore)
 		    else
-		      newundoitem.score = rawscore
+		      score = score +  rawscore
 		    end
-		    score = score + newundoitem.score
 		  end
 		  for i = 1 to 10
 		    across = ""
@@ -423,7 +379,6 @@ End
 		  temp.Shuffle
 		  tempcount = ubound(temp)+1
 		  if (UBound(aclear) < 0 and UBound(dclear) < 0) or (UBound(aclear)+1)*10 + (ubound(dclear)+1) * (9 - UBound(aclear)) > tempcount then
-		    undo.Append newundoitem
 		  else
 		    for i = 0 to UBound(aclear)
 		      for j = 1 to 10
@@ -438,7 +393,6 @@ End
 		      next
 		    next
 		    unplaced = join(temp,"")
-		    redim undo(-1)
 		  end
 		  updateLabels
 		  Refresh
@@ -624,10 +578,6 @@ End
 
 	#tag Property, Flags = &h0
 		showorig As boolean = false
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		undo() As UndoItem
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

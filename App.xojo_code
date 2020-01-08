@@ -9,12 +9,6 @@ Inherits Application
 	#tag EndEvent
 
 	#tag Event
-		Sub EnableMenuItems()
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
 		Sub Open()
 		  wordsDB = new SQLiteDatabase
 		  wordsDB.DatabaseFile = SpecialFolder.Documents.Child("Words.sqlite")
@@ -46,5 +40,7 @@ Inherits Application
 	#tag EndConstant
 
 
+	#tag ViewBehavior
+	#tag EndViewBehavior
 End Class
 #tag EndClass
