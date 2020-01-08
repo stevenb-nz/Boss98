@@ -16,7 +16,7 @@ Begin Window Window1
    MaxHeight       =   32000
    MaximizeButton  =   True
    MaxWidth        =   32000
-   MenuBar         =   449009663
+   MenuBar         =   337709055
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
