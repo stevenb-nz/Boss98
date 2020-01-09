@@ -63,7 +63,7 @@ Begin Window MainWindow
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Clear HS"
+      Caption         =   "Clear"
       Default         =   False
       Enabled         =   True
       Height          =   20
@@ -165,23 +165,6 @@ End
 
 #tag WindowCode
 	#tag Event
-		Sub Close()
-		  dim f as FolderItem
-		  dim t as TextOutputStream
-		  
-		  if score > highscore then
-		    highscore = score
-		  end
-		  
-		  f = SpecialFolder.Preferences.Child("wc10ud.txt")
-		  t = TextOutputStream.Create(f)
-		  t.WriteLine str(highscore)
-		  t.Close
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  dim i, j, tempx, tempy as integer
 		  
@@ -242,25 +225,6 @@ End
 		      end
 		    end
 		  end
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Open()
-		  dim f as FolderItem
-		  dim t as TextInputStream
-		  
-		  f = SpecialFolder.Preferences.Child("wc10ud.txt")
-		  
-		  if f.Exists then
-		    t = TextInputStream.Open(f)
-		    if t <> nil then
-		      highscore = val(t.ReadLine)
-		      self.Title = "Word Crush 10x10 - High Score: " + str(highscore)
-		      t.Close
-		    end
-		  end
-		  
 		End Sub
 	#tag EndEvent
 
@@ -622,20 +586,7 @@ End
 #tag Events ClearButton
 	#tag Event
 		Sub Action()
-		  dim f as FolderItem
-		  dim t as TextOutputStream
-		  
-		  if me.Caption = "Clear" then
-		    clearAction
-		  else
-		    score = 0
-		    highscore = 0
-		    f = SpecialFolder.Preferences.Child("wc10ud.txt")
-		    t = TextOutputStream.Create(f)
-		    t.WriteLine str(0)
-		    t.Close
-		    self.Title = "Word Crush 10x10 - High Score: " + str(highscore)
-		  end
+		  clearAction
 		  
 		End Sub
 	#tag EndEvent
