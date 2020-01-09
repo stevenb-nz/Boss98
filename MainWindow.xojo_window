@@ -179,7 +179,7 @@ End
 		      mdy = tempy
 		      for i = 1 to 10
 		        for j = 1 to 10
-		          if i=mdx or j=mdy or i-j=mdx-mdy or i+j=mdx+mdy then
+		          if i=mdx or j=mdy then
 		            gridhl(i-1,j-1) = true
 		          end
 		        next
