@@ -177,14 +177,16 @@ End
 		    if (x-1) mod 42 > 0 and (y-1) mod 42 > 0 and tempx > 0 and tempx < 11 and tempy > 0 and tempy < 11 then
 		      mdx = tempx
 		      mdy = tempy
-		      for i = 1 to 10
-		        for j = 1 to 10
-		          if i=mdx or j=mdy then
-		            gridhl(i-1,j-1) = true
-		          end
+		      if grid(mdx-1,mdy-1) = "" then
+		        for i = 1 to 10
+		          for j = 1 to 10
+		            if i=mdx or j=mdy then
+		              gridhl(i-1,j-1) = true
+		            end
+		          next
 		        next
-		      next
-		      Refresh
+		        Refresh
+		      end
 		    end
 		    return true
 		  else
@@ -212,13 +214,12 @@ End
 		    dx = Sign(mux - mdx)
 		    dy = sign(muy - mdy)
 		    
-		    if grid(mux-1,muy-1) = "" and j = 1 then
+		    if grid(mdx-1,mdy-1) <> "" and grid(mux-1,muy-1) = "" and j = 1 then
 		      if (x-1) mod 42 > 0 and (y-1) mod 42 > 0 and mux > 0 and mux < 11 and muy > 0 and muy < 11 then
 		        if abs(mdx - mux)=0 or abs(mdy - muy)=0 then
 		          for i = 0 to j
 		            s = s + grid(mdx-1+i*dx,mdy-1+i*dy)
 		          next
-		          MsgBox s
 		          if isWord(s) then
 		            handleGoodWord(s)
 		          else
