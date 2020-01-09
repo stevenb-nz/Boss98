@@ -212,19 +212,23 @@ End
 		    dx = Sign(mux - mdx)
 		    dy = sign(muy - mdy)
 		    
-		    if (x-1) mod 42 > 0 and (y-1) mod 42 > 0 and mux > 0 and mux < 11 and muy > 0 and muy < 11 then
-		      if j > 0 and (abs(mdx - mux)=abs(mdy - muy) or abs(mdx - mux)=0 or abs(mdy - muy)=0) then
-		        for i = 0 to j
-		          s = s + grid(mdx-1+i*dx,mdy-1+i*dy)
-		        next
-		        if isWord(s) then
-		          handleGoodWord(s)
-		        else
-		          handleBadWord(s)
+		    if grid(mux-1,muy-1) = "" and j = 1 then
+		      if (x-1) mod 42 > 0 and (y-1) mod 42 > 0 and mux > 0 and mux < 11 and muy > 0 and muy < 11 then
+		        if abs(mdx - mux)=0 or abs(mdy - muy)=0 then
+		          for i = 0 to j
+		            s = s + grid(mdx-1+i*dx,mdy-1+i*dy)
+		          next
+		          MsgBox s
+		          if isWord(s) then
+		            handleGoodWord(s)
+		          else
+		            handleBadWord(s)
+		          end
 		        end
 		      end
 		    end
 		  end
+		  
 		End Sub
 	#tag EndEvent
 
