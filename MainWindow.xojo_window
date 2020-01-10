@@ -246,6 +246,7 @@ End
 		        if abs(mdx - mux)=0 or abs(mdy - muy)=0 then
 		          grid(mux-1,muy-1) = grid(mdx-1,mdy-1)
 		          grid(mdx-1,mdy-1) = ""
+		          updateLabels
 		          Refresh
 		        end
 		      end
@@ -304,92 +305,6 @@ End
 		  g.TextFont="Courier"
 		  g.TextSize=36
 		  g.DrawString letter, x*42-32, y*42-9
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub handleBadWord(letters as String)
-		  score = score - Pow(2, len(letters)-2)
-		  updateLabels
-		  refresh
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub handleGoodWord(word as string)
-		  dim dx,dy,i,j,rawscore,tempcount as integer
-		  dim across, down As string
-		  dim temp() as string
-		  dim aclear(-1) as integer
-		  dim dclear(-1) as integer
-		  dim scoring as Boolean
-		  
-		  scoring = false
-		  unplaced = unplaced + word
-		  j = max(abs(mdx - mux),abs(mdy - muy))
-		  dx = Sign(mux - mdx)
-		  dy = sign(muy - mdy)
-		  for i = 0 to j
-		    if grid(mdx-1+i*dx,mdy-1+i*dy) <> "" then
-		      grid(mdx-1+i*dx,mdy-1+i*dy) = ""
-		      if gridorig(mdx-1+i*dx,mdy-1+i*dy) then
-		        gridorig(mdx-1+i*dx,mdy-1+i*dy) = false
-		        origrem = origrem - 1
-		        scoring = true
-		        if origrem = 0 then
-		          gameOver = true
-		        end
-		      end
-		    end
-		  next
-		  rawscore = len(word) - 2
-		  if scoring then
-		    if len(word) = letters then
-		      score = score + pow(2,rawscore)
-		    else
-		      score = score +  rawscore
-		    end
-		  end
-		  for i = 1 to 10
-		    across = ""
-		    down = ""
-		    for j = 1 to 10
-		      across = across + grid(j-1,i-1)
-		      down = down + grid(i-1,j-1)
-		    next
-		    if across = "" then
-		      aclear.Append i
-		    end
-		    if down = "" then
-		      dclear.Append i
-		    end
-		  next
-		  temp = unplaced.Split("")
-		  temp.Shuffle
-		  tempcount = ubound(temp)+1
-		  if (UBound(aclear) < 0 and UBound(dclear) < 0) or (UBound(aclear)+1)*10 + (ubound(dclear)+1) * (9 - UBound(aclear)) > tempcount then
-		  else
-		    for i = 0 to UBound(aclear)
-		      for j = 1 to 10
-		        grid(j-1,aclear(i)-1) = temp.Pop
-		      next
-		    next
-		    for i = 0 to UBound(dclear)
-		      for j = 1 to 10
-		        if grid(dclear(i)-1,j-1) = "" then
-		          grid(dclear(i)-1,j-1) = temp.Pop
-		        end
-		      next
-		    next
-		    unplaced = join(temp,"")
-		  end
-		  updateLabels
-		  Refresh
-		  if gameOver then
-		    clearAction
-		  end
 		  
 		End Sub
 	#tag EndMethod
