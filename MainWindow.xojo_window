@@ -198,7 +198,7 @@ End
 
 	#tag Event
 		Sub MouseUp(X As Integer, Y As Integer)
-		  dim dx,dy,i,j as integer
+		  dim bsc,dx,dy,i,j as integer
 		  dim s as string
 		  
 		  if mdx > 0 and mdy > 0 then
@@ -211,6 +211,27 @@ End
 		    mux = (x-1) \ 42 + 1
 		    muy = (y-1) \ 42 + 1
 		    j = max(abs(mdx - mux),abs(mdy - muy))
+		    if j = 0 then
+		      if mdx > 1 then
+		        mux = mdx - 1
+		        
+		      end
+		      if mdx < 10 then
+		        mux = mdx + 1
+		        
+		      end
+		      if mdy > 1 then
+		        muy = mdy - 1
+		        
+		      end
+		      if mdy < 10 then
+		        muy = mdy + 1
+		        
+		      end
+		      if bsc = 1 then
+		        j = 1
+		      end
+		    end
 		    dx = Sign(mux - mdx)
 		    dy = sign(muy - mdy)
 		    
