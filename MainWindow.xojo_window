@@ -213,20 +213,28 @@ End
 		    j = max(abs(mdx - mux),abs(mdy - muy))
 		    if j = 0 then
 		      if mdx > 1 then
-		        mux = mdx - 1
-		        
+		        if grid(mdx-2,mdy-1) = "" then
+		          mux = mdx - 1
+		          bsc = bsc + 1
+		        end
 		      end
 		      if mdx < 10 then
-		        mux = mdx + 1
-		        
+		        if grid(mdx,mdy-1) = "" then
+		          mux = mdx + 1
+		          bsc = bsc + 1
+		        end
 		      end
 		      if mdy > 1 then
-		        muy = mdy - 1
-		        
+		        if grid(mdx-1,mdy-2) = "" then
+		          muy = mdy - 1
+		          bsc = bsc + 1
+		        end
 		      end
 		      if mdy < 10 then
-		        muy = mdy + 1
-		        
+		        if grid(mdx-1,mdy) = "" then
+		          muy = mdy + 1
+		          bsc = bsc + 1
+		        end
 		      end
 		      if bsc = 1 then
 		        j = 1
@@ -241,11 +249,7 @@ End
 		          for i = 0 to j
 		            s = s + grid(mdx-1+i*dx,mdy-1+i*dy)
 		          next
-		          if isWord(s) then
-		            handleGoodWord(s)
-		          else
-		            handleBadWord(s)
-		          end
+		          
 		        end
 		      end
 		    end
