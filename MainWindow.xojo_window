@@ -182,6 +182,8 @@ End
 		          for j = 1 to 10
 		            if i=mdx or j=mdy then
 		              gridhl(i-1,j-1) = true
+		            else
+		              gridhl(i-1,j-1) = false
 		            end
 		          next
 		        next
@@ -198,21 +200,16 @@ End
 
 	#tag Event
 		Sub MouseUp(X As Integer, Y As Integer)
-		  dim bsc,i,j as integer
+		  dim bsc,drag as integer
 		  
-		  for i = 1 to 10
-		    for j = 1 to 10
-		      gridhl(i-1,j-1) = false
-		    next
-		  next
-		  Refresh
+		  updateHL
 		  
 		  if mdx > 0 and mdy > 0 then
 		    mux = (x-1) \ 42 + 1
 		    muy = (y-1) \ 42 + 1
-		    j = max(abs(mdx - mux),abs(mdy - muy))
+		    drag = max(abs(mdx - mux),abs(mdy - muy))
 		    
-		    if j = 0 then
+		    if drag = 0 then
 		      if mdx > 1 then
 		        if grid(mdx-2,mdy-1) = "" then
 		          mux = mdx - 1
@@ -238,11 +235,11 @@ End
 		        end
 		      end
 		      if bsc = 1 then
-		        j = 1
+		        drag = 1
 		      end
 		    end
 		    
-		    if grid(mdx-1,mdy-1) <> "" and grid(mux-1,muy-1) = "" and j = 1 then
+		    if grid(mdx-1,mdy-1) <> "" and grid(mux-1,muy-1) = "" and drag = 1 then
 		      if (x-1) mod 42 > 0 and (y-1) mod 42 > 0 and mux > 0 and mux < 11 and muy > 0 and muy < 11 then
 		        if abs(mdx - mux)=0 or abs(mdy - muy)=0 then
 		          grid(mux-1,muy-1) = grid(mdx-1,mdy-1)
@@ -347,6 +344,12 @@ End
 		Sub updateHL()
 		  dim i,j,k,l as integer
 		  dim sa, sd as string
+		  
+		  for i = 1 to 10
+		    for j = 1 to 10
+		      gridhl(i-1,j-1) = false
+		    next
+		  next
 		  
 		  for i = 1 to 10
 		    for j = 1 to 9
@@ -550,7 +553,7 @@ End
 		  score = 0
 		  gameOver = false
 		  updateLabels
-		  Refresh
+		  updateHL
 		  ClearButton.Caption = "Clear"
 		  me.Enabled = false
 		  
