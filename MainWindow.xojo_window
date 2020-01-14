@@ -246,6 +246,7 @@ End
 		        if abs(mdx - mux)=0 or abs(mdy - muy)=0 then
 		          grid(mux-1,muy-1) = grid(mdx-1,mdy-1)
 		          grid(mdx-1,mdy-1) = ""
+		          updateHL
 		          updateLabels
 		          Refresh
 		        end
@@ -337,6 +338,12 @@ End
 		      longword = word
 		    end
 		  end
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub updateHL()
 		  
 		End Sub
 	#tag EndMethod
