@@ -290,23 +290,8 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub processWord(word as string, byref words as integer, byref letters as integer)
-		  if isWord(word) then
-		    words = words + 1
-		    if len(word) = letters then
-		      longword = longword + ", " + word
-		    elseif len(word) > letters then
-		      letters = len(word)
-		      longword = word
-		    end
-		  end
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub updateHL()
-		  dim i,j,k,l as integer
+		  dim hl,i,j,k,l as integer
 		  dim sa, sd as string
 		  
 		  for i = 1 to 10
@@ -339,6 +324,19 @@ End
 		      next
 		    next
 		  next
+		  
+		  for i = 1 to 10
+		    for j = 1 to 10
+		      if gridhl(i-1,j-1) then
+		        hl = hl + 1
+		      end
+		    next
+		  next
+		  
+		  if hl = 98 then
+		    gameOver = true
+		  end
+		  
 		  Refresh
 		  
 		End Sub
@@ -346,87 +344,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub updateLabels()
-		  dim i, x, y, words as integer
-		  dim su,sul,sl,sdl,sd,sdr,sr,sur as string
-		  
-		  letters = 0
-		  for x = 0 to 9
-		    for y = 0 to 9
-		      su = ""
-		      sul = ""
-		      sl = ""
-		      sdl = ""
-		      sd = ""
-		      sdr = ""
-		      sr = ""
-		      sur = ""
-		      if grid(x,y) <> "" then
-		        su = grid(x,y)
-		        sul = grid(x,y)
-		        sl = grid(x,y)
-		        sdl = grid(x,y)
-		        sd = grid(x,y)
-		        sdr = grid(x,y)
-		        sr = grid(x,y)
-		        sur = grid(x,y)
-		        for i = 1 to 9
-		          if y-i > -1 then
-		            if grid(x,y-i) <> "" then
-		              su = su + grid(x,y-i)
-		              processWord(su,words,letters)
-		            end
-		          end
-		          if x-i > -1 and y-i > -1 then
-		            if grid(x-i,y-i) <> "" then
-		              sul = sul + grid(x-i,y-i)
-		              processWord(sul,words,letters)
-		            end
-		          end
-		          if x-i > -1 then
-		            if grid(x-i,y) <> "" then
-		              sl = sl + grid(x-i,y)
-		              processWord(sl,words,letters)
-		            end
-		          end
-		          if x-i > -1 and y+i < 10 then
-		            if grid(x-i,y+i) <> "" then
-		              sdl = sdl + grid(x-i,y+i)
-		              processWord(sdl,words,letters)
-		            end
-		          end
-		          if y+i < 10 then
-		            if grid(x,y+i) <> "" then
-		              sd = sd + grid(x,y+i)
-		              processWord(sd,words,letters)
-		            end
-		          end
-		          if x+i < 10 and y+i < 10 then
-		            if grid(x+i,y+i) <> "" then
-		              sdr = sdr + grid(x+i,y+i)
-		              processWord(sdr,words,letters)
-		            end
-		          end
-		          if x+i < 10 then
-		            if grid(x+i,y) <> "" then
-		              sr = sr + grid(x+i,y)
-		              processWord(sr,words,letters)
-		            end
-		          end
-		          if x+i < 10 and y-i > -1 then
-		            if grid(x+i,y-i) <> "" then
-		              sur = sur + grid(x+i,y-i)
-		              processWord(sur,words,letters)
-		            end
-		          end
-		        next
-		      end
-		    next
-		  next
-		  
 		  scoreLabel.Text = "Score: " + str(score) + "  Low score: " + str(0)
-		  if words = 0 then
-		    gameOver = true
-		  end
 		  
 		End Sub
 	#tag EndMethod
