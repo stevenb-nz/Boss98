@@ -9,16 +9,16 @@ Begin Window MainWindow
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   521
+   Height          =   481
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
-   MaxHeight       =   521
+   MaxHeight       =   481
    MaximizeButton  =   True
    MaxWidth        =   421
    MenuBar         =   1632753663
    MenuBarVisible  =   True
-   MinHeight       =   521
+   MinHeight       =   481
    MinimizeButton  =   True
    MinWidth        =   421
    Placement       =   1
@@ -52,7 +52,7 @@ Begin Window MainWindow
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   481
+      Top             =   449
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -71,7 +71,7 @@ Begin Window MainWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   321
+      Left            =   229
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -89,41 +89,6 @@ Begin Window MainWindow
       Underline       =   False
       Visible         =   True
       Width           =   80
-   End
-   Begin Label infoLabel
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "0 words, 0 letters max (0 words)"
-      TextAlign       =   1
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   481
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   289
    End
    Begin Label scoreLabel
       AutoDeactivate  =   True
@@ -158,7 +123,7 @@ Begin Window MainWindow
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   289
+      Width           =   197
    End
 End
 #tag EndWindow
@@ -285,7 +250,6 @@ End
 		  next
 		  ClearButton.Caption = "Clear HS"
 		  StartButton.Enabled = true
-		  infoLabel.Text = "0 words, 0 letters max (0 words)"
 		  longword = ""
 		  Refresh
 		  
@@ -294,7 +258,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub displayletter(g as graphics, x as integer, y as integer, letter as string)
-		  if gridhl(x-1,y-1) or (showorig and gridorig(x-1,y-1)) then
+		  if gridhl(x-1,y-1) then
 		    g.foreColor = rgb(191,191,95)
 		  else
 		    g.foreColor = rgb(255,255,191)
@@ -459,7 +423,6 @@ End
 		    next
 		  next
 		  
-		  infoLabel.Text = str(words) + if(words=1," word, "," words, ") + str(letters) + " letters max ("+str(longword.CountFields(", ")) + if(longword.CountFields(", ")=1," word"," words")+")"
 		  scoreLabel.Text = str(origrem) + " original remaining, Score: " + str(score)
 		  if words = 0 then
 		    gameOver = true
@@ -479,10 +442,6 @@ End
 
 	#tag Property, Flags = &h0
 		gridhl(9,9) As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		gridorig(9,9) As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -522,10 +481,6 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		showorig As boolean = false
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
 		unplaced As String
 	#tag EndProperty
 
@@ -550,7 +505,6 @@ End
 		  for i=0 to 9
 		    for j=0 to 9
 		      grid(i,j) = temp.Pop
-		      gridorig(i,j) = true
 		    next
 		  next
 		  origrem = 100
@@ -572,44 +526,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events infoLabel
-	#tag Event
-		Function MouseDown(X As Integer, Y As Integer) As Boolean
-		  if longword <> "" then
-		    
-		    dim longpop as new MenuItem
-		    dim temp() as string
-		    dim i as integer
-		    
-		    temp = longword.split(", ")
-		    temp.Sort
-		    for i = 0 to UBound(temp)
-		      longpop.Append (new MenuItem(temp(i)))
-		    next
-		    
-		    longpop = longpop.PopUp
-		    
-		  end
-		  
-		End Function
-	#tag EndEvent
-#tag EndEvents
 #tag Events scoreLabel
-	#tag Event
-		Function MouseDown(X As Integer, Y As Integer) As Boolean
-		  showorig = true
-		  Refresh
-		  return true
-		  
-		End Function
-	#tag EndEvent
-	#tag Event
-		Sub MouseUp(X As Integer, Y As Integer)
-		  showorig = false
-		  Refresh
-		  
-		End Sub
-	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
@@ -882,12 +799,6 @@ End
 		Name="gameOver"
 		Group="Behavior"
 		Type="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="showorig"
-		Group="Behavior"
-		InitialValue="false"
-		Type="boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="letters"
