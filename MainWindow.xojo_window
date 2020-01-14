@@ -357,16 +357,20 @@ End
 		      sd = ""
 		      for k = j to 10
 		        sa = sa + if(grid(i-1,k-1)=""," ",grid(i-1,k-1))
-		        if isWord(sa) then
-		          for l = 1 to len(sa)
-		            gridhl(i-1,l+j-2) = true
-		          next
+		        if len(sa) > 2 then
+		          if isWord(sa) then
+		            for l = 1 to len(sa)
+		              gridhl(i-1,l+j-2) = true
+		            next
+		          end
 		        end
 		        sd = sd + if(grid(k-1,i-1)=""," ",grid(k-1,i-1))
-		        if isword(sd) then
-		          for l = 1 to len(sd)
-		            gridhl(l+j-2,i-1) = true
-		          next
+		        if len(sd) > 2 then
+		          if isword(sd) then
+		            for l = 1 to len(sd)
+		              gridhl(l+j-2,i-1) = true
+		            next
+		          end
 		        end
 		      next
 		    next
