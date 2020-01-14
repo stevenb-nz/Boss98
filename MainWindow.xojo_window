@@ -23,7 +23,7 @@ Begin Window MainWindow
    MinWidth        =   421
    Placement       =   1
    Resizeable      =   True
-   Title           =   "Word Crush 10x10 - High Score: 0"
+   Title           =   "Boss 98"
    Visible         =   True
    Width           =   421
    Begin PushButton StartButton
@@ -113,7 +113,7 @@ Begin Window MainWindow
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "196 original remaining, Score: 0"
+      Text            =   "Score: 0  Low score: ?"
       TextAlign       =   1
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -423,7 +423,7 @@ End
 		    next
 		  next
 		  
-		  scoreLabel.Text = str(origrem) + " original remaining, Score: " + str(score)
+		  scoreLabel.Text = "Score: " + str(score) + "  Low score: " + str(0)
 		  if words = 0 then
 		    gameOver = true
 		  end
@@ -473,10 +473,6 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		origrem As Integer
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
 		score As Integer
 	#tag EndProperty
 
@@ -507,7 +503,6 @@ End
 		      grid(i,j) = temp.Pop
 		    next
 		  next
-		  origrem = 100
 		  score = 0
 		  gameOver = false
 		  updateLabels
@@ -784,11 +779,6 @@ End
 		Group="Behavior"
 		Type="String"
 		EditorType="MultiLineEditor"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="origrem"
-		Group="Behavior"
-		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="score"
