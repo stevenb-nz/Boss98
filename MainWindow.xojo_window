@@ -200,13 +200,14 @@ End
 		Sub MouseUp(X As Integer, Y As Integer)
 		  dim bsc,i,j as integer
 		  
-		  if mdx > 0 and mdy > 0 then
-		    for i = 1 to 10
-		      for j = 1 to 10
-		        gridhl(i-1,j-1) = false
-		      next
+		  for i = 1 to 10
+		    for j = 1 to 10
+		      gridhl(i-1,j-1) = false
 		    next
-		    Refresh
+		  next
+		  Refresh
+		  
+		  if mdx > 0 and mdy > 0 then
 		    mux = (x-1) \ 42 + 1
 		    muy = (y-1) \ 42 + 1
 		    j = max(abs(mdx - mux),abs(mdy - muy))
@@ -344,6 +345,28 @@ End
 
 	#tag Method, Flags = &h0
 		Sub updateHL()
+		  dim i,j,k,l as integer
+		  dim sa, sd as string
+		  
+		  for i = 1 to 10
+		    for j = 1 to 9
+		      sa = ""
+		      sd = ""
+		      for k = j to 10
+		        sa = sa + if(grid(i-1,k-1)=""," ",grid(i-1,k-1))
+		        if isWord(sa) then
+		          for l = 1 to len(sa)
+		          next
+		        end
+		        sd = sd + if(grid(k-1,i-1)=""," ",grid(k-1,i-1))
+		        if isword(sd) then
+		          for l = 1 to len(sd)
+		          next
+		        end
+		      next
+		    next
+		  next
+		  Refresh
 		  
 		End Sub
 	#tag EndMethod
