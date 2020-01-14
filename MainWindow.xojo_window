@@ -356,11 +356,13 @@ End
 		        sa = sa + if(grid(i-1,k-1)=""," ",grid(i-1,k-1))
 		        if isWord(sa) then
 		          for l = 1 to len(sa)
+		            gridhl(i-1,l+j-2) = true
 		          next
 		        end
 		        sd = sd + if(grid(k-1,i-1)=""," ",grid(k-1,i-1))
 		        if isword(sd) then
 		          for l = 1 to len(sd)
+		            gridhl(l+j-2,i-1) = true
 		          next
 		        end
 		      next
