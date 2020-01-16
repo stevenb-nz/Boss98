@@ -204,13 +204,15 @@ End
 		      end
 		    end
 		    
-		    if grid(mdx-1,mdy-1) <> "" and grid(mux-1,muy-1) = "" and drag = 1 then
+		    if drag = 1 then
 		      if (x-1) mod 42 > 0 and (y-1) mod 42 > 0 and mux > 0 and mux < 11 and muy > 0 and muy < 11 then
-		        grid(mux-1,muy-1) = grid(mdx-1,mdy-1)
-		        grid(mdx-1,mdy-1) = ""
-		        updateHL
-		        updateLabels
-		        Refresh
+		        if grid(mdx-1,mdy-1) <> "" and grid(mux-1,muy-1) = "" then
+		          grid(mux-1,muy-1) = grid(mdx-1,mdy-1)
+		          grid(mdx-1,mdy-1) = ""
+		          updateHL
+		          updateLabels
+		          Refresh
+		        end
 		      end
 		    end
 		  end
