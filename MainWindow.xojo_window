@@ -207,10 +207,11 @@ End
 		    if drag = 1 then
 		      if (x-1) mod 42 > 0 and (y-1) mod 42 > 0 and mux > 0 and mux < 11 and muy > 0 and muy < 11 then
 		        if grid(mdx-1,mdy-1) <> "" and grid(mux-1,muy-1) = "" then
+		          score = score + 1
+		          scoreLabel.Text = "Score: " + str(score) + "  Low score: " + if(lowscore=0,"?",str(lowscore))
 		          grid(mux-1,muy-1) = grid(mdx-1,mdy-1)
 		          grid(mdx-1,mdy-1) = ""
 		          updateHL
-		          updateLabels
 		          Refresh
 		        end
 		      end
@@ -242,20 +243,19 @@ End
 		Sub clearAction()
 		  dim i,j as Integer
 		  
-		  if score > highscore then
-		    highscore = score
-		    self.Title = "Word Crush 10x10 - High Score: " + str(highscore)
+		  if lowscore = 0 or score < lowscore then
+		    lowscore = score
 		  end
-		  unplaced = ""
+		  
 		  for i=0 to 9
 		    for j=0 to 9
 		      grid(i,j) = ""
 		      gridhl(i,j) = false
 		    next
 		  next
+		  scoreLabel.Text = "Score: " + str(score) + "  Low score: " + if(lowscore=0,"?",str(lowscore))
 		  ClearButton.Caption = "Clear HS"
 		  StartButton.Enabled = true
-		  longword = ""
 		  Refresh
 		  
 		End Sub
@@ -352,13 +352,6 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub updateLabels()
-		  scoreLabel.Text = "Score: " + str(score) + "  Low score: " + str(0)
-		  
-		End Sub
-	#tag EndMethod
-
 
 	#tag Property, Flags = &h0
 		gameOver As Boolean
@@ -373,15 +366,11 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		highscore As Integer
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
 		letters As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		longword As String
+		lowscore As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -402,10 +391,6 @@ End
 
 	#tag Property, Flags = &h0
 		score As Integer
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		unplaced As String
 	#tag EndProperty
 
 
@@ -433,7 +418,6 @@ End
 		  next
 		  score = 0
 		  gameOver = false
-		  updateLabels
 		  updateHL
 		  ClearButton.Caption = "Clear"
 		  me.Enabled = false
@@ -444,6 +428,7 @@ End
 #tag Events ClearButton
 	#tag Event
 		Sub Action()
+		  score = 0
 		  clearAction
 		  
 		End Sub
@@ -675,12 +660,6 @@ End
 		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="unplaced"
-		Group="Behavior"
-		Type="String"
-		EditorType="MultiLineEditor"
-	#tag EndViewProperty
-	#tag ViewProperty
 		Name="mdx"
 		Group="Behavior"
 		Type="Integer"
@@ -701,12 +680,6 @@ End
 		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="longword"
-		Group="Behavior"
-		Type="String"
-		EditorType="MultiLineEditor"
-	#tag EndViewProperty
-	#tag ViewProperty
 		Name="score"
 		Group="Behavior"
 		Type="Integer"
@@ -722,7 +695,7 @@ End
 		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="highscore"
+		Name="lowscore"
 		Group="Behavior"
 		Type="Integer"
 	#tag EndViewProperty
