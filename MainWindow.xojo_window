@@ -339,6 +339,11 @@ End
 		  
 		  if hl = 98 then
 		    gameOver = true
+		    for i = 1 to 10
+		      for j = 1 to 10
+		        gridhl(i-1,j-1) = false
+		      next
+		    next
 		  end
 		  
 		  Refresh
