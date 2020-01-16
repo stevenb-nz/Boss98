@@ -172,7 +172,7 @@ End
 		  if mdx > 0 and mdy > 0 then
 		    mux = (x-1) \ 42 + 1
 		    muy = (y-1) \ 42 + 1
-		    drag = max(abs(mdx - mux),abs(mdy - muy))
+		    drag = abs(mdx - mux)+abs(mdy - muy)
 		    
 		    if drag = 0 then
 		      if mdx > 1 then
@@ -206,13 +206,11 @@ End
 		    
 		    if grid(mdx-1,mdy-1) <> "" and grid(mux-1,muy-1) = "" and drag = 1 then
 		      if (x-1) mod 42 > 0 and (y-1) mod 42 > 0 and mux > 0 and mux < 11 and muy > 0 and muy < 11 then
-		        if abs(mdx - mux)=0 or abs(mdy - muy)=0 then
-		          grid(mux-1,muy-1) = grid(mdx-1,mdy-1)
-		          grid(mdx-1,mdy-1) = ""
-		          updateHL
-		          updateLabels
-		          Refresh
-		        end
+		        grid(mux-1,muy-1) = grid(mdx-1,mdy-1)
+		        grid(mdx-1,mdy-1) = ""
+		        updateHL
+		        updateLabels
+		        Refresh
 		      end
 		    end
 		  end
