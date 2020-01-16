@@ -217,6 +217,10 @@ End
 		    end
 		  end
 		  
+		  if gameOver then
+		    clearAction
+		  end
+		  
 		End Sub
 	#tag EndEvent
 
@@ -438,8 +442,6 @@ End
 		  
 		End Sub
 	#tag EndEvent
-#tag EndEvents
-#tag Events scoreLabel
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
