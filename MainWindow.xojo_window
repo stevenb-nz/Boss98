@@ -250,6 +250,7 @@ End
 		  for i=0 to 9
 		    for j=0 to 9
 		      grid(i,j) = ""
+		      gridhl(i,j) = false
 		    next
 		  next
 		  ClearButton.Caption = "Clear HS"
