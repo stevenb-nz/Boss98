@@ -63,7 +63,7 @@ Begin Window MainWindow
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Clear"
+      Caption         =   "Clear HD"
       Default         =   False
       Enabled         =   True
       Height          =   20
@@ -243,7 +243,7 @@ End
 		Sub clearAction()
 		  dim i,j as Integer
 		  
-		  if lowscore = 0 or score < lowscore then
+		  if lowscore = 0 or (lowscore > score and score > 0) then
 		    lowscore = score
 		  end
 		  
@@ -254,7 +254,7 @@ End
 		    next
 		  next
 		  scoreLabel.Text = "Score: " + str(score) + "  Low score: " + if(lowscore=0,"?",str(lowscore))
-		  ClearButton.Caption = "Clear HS"
+		  ClearButton.Caption = "Clear LS"
 		  StartButton.Enabled = true
 		  Refresh
 		  
@@ -417,6 +417,7 @@ End
 		    next
 		  next
 		  score = 0
+		  scoreLabel.Text = "Score: " + str(score) + "  Low score: " + if(lowscore=0,"?",str(lowscore))
 		  gameOver = false
 		  updateHL
 		  ClearButton.Caption = "Clear"
@@ -428,8 +429,19 @@ End
 #tag Events ClearButton
 	#tag Event
 		Sub Action()
+		  dim f as FolderItem
+		  dim t as TextOutputStream
+		  
 		  score = 0
-		  clearAction
+		  if me.Caption = "Clear" then
+		    clearAction
+		  else
+		    lowscore = 0
+		    f = SpecialFolder.Preferences.Child("boss98ud.txt")
+		    t = TextOutputStream.Create(f)
+		    t.WriteLine str(0)
+		    t.Close
+		  end
 		  
 		End Sub
 	#tag EndEvent
