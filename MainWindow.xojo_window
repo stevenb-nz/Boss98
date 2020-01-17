@@ -226,6 +226,25 @@ End
 	#tag EndEvent
 
 	#tag Event
+		Sub Open()
+		  dim f as FolderItem
+		  dim t as TextInputStream
+		  
+		  f = SpecialFolder.Preferences.Child("boss98ud.txt")
+		  
+		  if f.Exists then
+		    t = TextInputStream.Open(f)
+		    if t <> nil then
+		      lowscore = val(t.ReadLine)
+		      scoreLabel.Text = "Score: " + str(score) + "  Low score: " + if(lowscore=0,"?",str(lowscore))
+		      t.Close
+		    end
+		  end
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  dim i,j as integer
 		  
