@@ -63,7 +63,7 @@ Begin Window MainWindow
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Clear HD"
+      Caption         =   "Clear LS"
       Default         =   False
       Enabled         =   True
       Height          =   20
@@ -129,6 +129,23 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Close()
+		  dim f as FolderItem
+		  dim t as TextOutputStream
+		  
+		  if lowscore > score and score > 0 then
+		    lowscore = score
+		  end
+		  
+		  f = SpecialFolder.Preferences.Child("boss98ud.txt")
+		  t = TextOutputStream.Create(f)
+		  t.WriteLine str(lowscore)
+		  t.Close
+		  
+		End Sub
+	#tag EndEvent
+
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  dim i, j, tempx, tempy as integer
@@ -456,6 +473,7 @@ End
 		    clearAction
 		  else
 		    lowscore = 0
+		    scoreLabel.Text = "Score: " + str(score) + "  Low score: " + if(lowscore=0,"?",str(lowscore))
 		    f = SpecialFolder.Preferences.Child("boss98ud.txt")
 		    t = TextOutputStream.Create(f)
 		    t.WriteLine str(0)
