@@ -71,7 +71,7 @@ Begin Window MainWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   189
+      Left            =   194
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -88,7 +88,7 @@ Begin Window MainWindow
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   120
+      Width           =   115
    End
    Begin Label scoreLabel
       AutoDeactivate  =   True
@@ -113,7 +113,7 @@ Begin Window MainWindow
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Score: 0  Low score: ?"
+      Text            =   "Score: 0 Low score: ?"
       TextAlign       =   1
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -123,7 +123,7 @@ Begin Window MainWindow
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   157
+      Width           =   162
    End
 End
 #tag EndWindow
@@ -225,7 +225,7 @@ End
 		      if (x-1) mod 42 > 0 and (y-1) mod 42 > 0 and mux > 0 and mux < 11 and muy > 0 and muy < 11 then
 		        if grid(mdx-1,mdy-1) <> "" and grid(mux-1,muy-1) = "" then
 		          score = score + 1
-		          scoreLabel.Text = "Score: " + str(score) + "  Low score: " + if(lowscore=0,"?",str(lowscore))
+		          scoreLabel.Text = "Score: " + str(score) + " Low score: " + if(lowscore=0,"?",str(lowscore))
 		          grid(mux-1,muy-1) = grid(mdx-1,mdy-1)
 		          grid(mdx-1,mdy-1) = ""
 		          updateHL
@@ -253,7 +253,7 @@ End
 		    t = TextInputStream.Open(f)
 		    if t <> nil then
 		      lowscore = val(t.ReadLine)
-		      scoreLabel.Text = "Score: " + str(score) + "  Low score: " + if(lowscore=0,"?",str(lowscore))
+		      scoreLabel.Text = "Score: " + str(score) + " Low score: " + if(lowscore=0,"?",str(lowscore))
 		      t.Close
 		    end
 		  end
@@ -289,7 +289,7 @@ End
 		      gridhl(i,j) = false
 		    next
 		  next
-		  scoreLabel.Text = "Score: " + str(score) + "  Low score: " + if(lowscore=0,"?",str(lowscore))
+		  scoreLabel.Text = "Score: " + str(score) + " Low score: " + if(lowscore=0,"?",str(lowscore))
 		  ClearButton.Caption = "Clear LS"
 		  StartButton.Enabled = true
 		  Refresh
@@ -453,7 +453,7 @@ End
 		    next
 		  next
 		  score = 0
-		  scoreLabel.Text = "Score: " + str(score) + "  Low score: " + if(lowscore=0,"?",str(lowscore))
+		  scoreLabel.Text = "Score: " + str(score) + " Low score: " + if(lowscore=0,"?",str(lowscore))
 		  gameOver = false
 		  updateHL
 		  ClearButton.Caption = "Clear"
@@ -473,7 +473,7 @@ End
 		    clearAction
 		  else
 		    lowscore = 0
-		    scoreLabel.Text = "Score: " + str(score) + "  Low score: " + if(lowscore=0,"?",str(lowscore))
+		    scoreLabel.Text = "Score: " + str(score) + " Low score: " + if(lowscore=0,"?",str(lowscore))
 		    f = SpecialFolder.Preferences.Child("boss98ud.txt")
 		    t = TextOutputStream.Create(f)
 		    t.WriteLine str(0)
