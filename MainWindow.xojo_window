@@ -63,7 +63,7 @@ Begin Window MainWindow
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Clear LS"
+      Caption         =   "Clear Low Score"
       Default         =   False
       Enabled         =   True
       Height          =   20
@@ -71,7 +71,7 @@ Begin Window MainWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   229
+      Left            =   189
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -88,7 +88,7 @@ Begin Window MainWindow
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   120
    End
    Begin Label scoreLabel
       AutoDeactivate  =   True
@@ -123,7 +123,7 @@ Begin Window MainWindow
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   197
+      Width           =   157
    End
 End
 #tag EndWindow
