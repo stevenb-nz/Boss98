@@ -134,10 +134,6 @@ End
 		  dim f as FolderItem
 		  dim t as TextOutputStream
 		  
-		  if lowscore > score and score > 0 then
-		    lowscore = score
-		  end
-		  
 		  f = SpecialFolder.Preferences.Child("boss98ud.txt")
 		  t = TextOutputStream.Create(f)
 		  t.WriteLine str(lowscore)
