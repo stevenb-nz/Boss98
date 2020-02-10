@@ -11,7 +11,7 @@ Inherits Application
 	#tag Event
 		Sub Open()
 		  wordsDB = new SQLiteDatabase
-		  wordsDB.DatabaseFile = SpecialFolder.Documents.Child("Words.sqlite")
+		  wordsDB.DatabaseFile = SpecialFolder.Documents.child("myDBs").Child("Words.sqlite")
 		  if not wordsDB.CreateDatabaseFile then
 		    MsgBox "Error connecting to Words database."
 		  end
